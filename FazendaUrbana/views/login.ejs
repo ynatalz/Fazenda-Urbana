@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Fazenda Urbana</title>
+  <link rel="stylesheet" href="/css/global.css">
+  <!-- Autor: Lucas Natal (Dev) https://www.linkedin.com/in/lucas-augusto-natal-a03021279/ -->
+</head>
+
+<body class="pagina_login">
+
+  <header class="header">
+    <div class="header_menu">
+      <a href="/" class="header_logo">
+        <img src="/assets/img/logo.jpg" alt="Logo Fazenda Urbana">
+      </a>
+      <nav class="header_nav">
+        <ul class="lista_nav">
+          <li><a href="/">Home</a></li>
+          <li><a href="/etapas">Etapas</a></li>
+          <li><a href="/impactos">Impactos</a></li>
+          <li><a href="/parceiros">Parceiros</a></li>
+          <li><a href="/contato">Contato</a></li>
+          <li id="item_login"><a href="/login" class="nav_ativo">Login</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main_login">
+    <section class="container_login">
+      <h1 class="titulo_login" id="titulo_auth">Entrar</h1>
+      <p class="subtitulo_login" id="subtitulo_auth">Acesse sua conta</p>
+
+      <% if (query && query.cadastro === 'ok') { %>
+        <p style="color:green;text-align:center;margin-bottom:12px;">Conta criada! Faça login abaixo.</p>
+      <% } %>
+      <% if (query && query.erro) { %>
+        <p style="color:red;text-align:center;margin-bottom:12px;">Erro ao cadastrar. Tente de novo.</p>
+      <% } %>
+
+      <div class="auth_conteudo">
+
+        <!-- LOGIN: fetch simples -->
+        <div id="painel_login" class="auth_painel auth_painel--ativo">
+          <form id="login_form" class="login_form" onsubmit="return fazerLogin(event)">
+            <div class="login_campo">
+              <label for="login_usuario">Usuário</label>
+              <input type="text" id="login_usuario" required>
+            </div>
+            <div class="login_campo">
+              <label for="login_senha">Senha</label>
+              <input type="password" id="login_senha" required>
+            </div>
+            <button type="submit" class="btn_entrar">Entrar</button>
+          </form>
+          <p class="auth_alternar">
+            Não tem conta?
+            <button type="button" class="auth_alternar_btn" onclick="mostrarRegistro()">Criar conta</button>
+          </p>
+        </div>
+
+        <!-- REGISTRO: POST direto no servidor (salva no Mongo sem depender de JS externo) -->
+        <div id="painel_registro" class="auth_painel" hidden>
+          <form class="login_form" method="POST" action="/registro" onsubmit="return validarSenhas()">
+            <div class="login_campo">
+              <label for="reg_nome">Nome</label>
+              <input type="text" id="reg_nome" name="nome" required>
+            </div>
+            <div class="login_campo">
+              <label for="reg_usuario">Usuário</label>
+              <input type="text" id="reg_usuario" name="usuario" required>
+            </div>
+            <div class="login_campo">
+              <label for="reg_email">Email</label>
+              <input type="email" id="reg_email" name="email" required>
+            </div>
+            <div class="login_campo">
+              <label for="reg_senha">Senha</label>
+              <input type="password" id="reg_senha" name="senha" required>
+            </div>
+            <div class="login_campo">
+              <label for="reg_confirmar">Confirmar senha</label>
+              <input type="password" id="reg_confirmar" required>
+            </div>
+            <button type="submit" class="btn_entrar">Criar conta</button>
+          </form>
+          <p class="auth_alternar">
+            <button type="button" class="auth_alternar_btn" onclick="mostrarLogin()">Já tenho conta</button>
+          </p>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 Fazenda Urbana</p>
+  </footer>
+
+  <script src="/js/script.js"></script>
+  <script>
+    // Já logado: não mostrar página de login
+    if (localStorage.getItem("usuarioLogado")) {
+      window.location.replace("/");
+    }
+
+    function mostrarRegistro() {
+      document.getElementById("painel_login").hidden = true;
+      document.getElementById("painel_login").classList.remove("auth_painel--ativo");
+      document.getElementById("painel_registro").hidden = false;
+      document.getElementById("painel_registro").classList.add("auth_painel--ativo");
+      document.getElementById("titulo_auth").textContent = "Criar conta";
+      document.getElementById("subtitulo_auth").textContent = "Cadastre-se na Fazenda Urbana";
+    }
+
+    function mostrarLogin() {
+      document.getElementById("painel_registro").hidden = true;
+      document.getElementById("painel_registro").classList.remove("auth_painel--ativo");
+      document.getElementById("painel_login").hidden = false;
+      document.getElementById("painel_login").classList.add("auth_painel--ativo");
+      document.getElementById("titulo_auth").textContent = "Entrar";
+      document.getElementById("subtitulo_auth").textContent = "Acesse sua conta";
+    }
+
+    function validarSenhas() {
+      var s1 = document.getElementById("reg_senha").value;
+      var s2 = document.getElementById("reg_confirmar").value;
+      if (s1 !== s2) {
+        alert("As senhas não coincidem.");
+        return false;
+      }
+      return true;
+    }
+
+    async function fazerLogin(evento) {
+      evento.preventDefault();
+
+      var usuario = document.getElementById("login_usuario").value.trim();
+      var senha = document.getElementById("login_senha").value;
+
+      try {
+        var resposta = await fetch("/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ usuario: usuario, senha: senha })
+        });
+
+        var dados = await resposta.json();
+
+        if (dados.sucesso) {
+          localStorage.setItem("usuarioLogado", usuario);
+          if (typeof atualizarNavbar === "function") {
+            atualizarNavbar();
+          }
+          window.location.replace("/");
+          return false;
+        }
+
+        alert(dados.mensagem || "Usuário ou senha incorretos.");
+      } catch (e) {
+        alert("Erro: rode npm start e abra http://localhost:3000/login");
+      }
+      return false;
+    }
+  </script>
+</body>
+</html>

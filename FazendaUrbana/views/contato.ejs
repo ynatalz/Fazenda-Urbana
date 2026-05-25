@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contato - Fazenda Urbana</title>
+  <link rel="stylesheet" href="/css/global.css">
+  <!-- Autor: Lucas Natal (Dev) https://www.linkedin.com/in/lucas-augusto-natal-a03021279/ -->
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="header_menu">
+      <a href="/" class="header_logo">
+        <img src="/assets/img/logo.jpg" alt="Logo Fazenda Urbana">
+      </a>
+      <nav class="header_nav">
+        <ul class="lista_nav">
+          <li><a href="/">Home</a></li>
+          <li><a href="/etapas">Etapas</a></li>
+          <li><a href="/impactos">Impactos</a></li>
+          <li><a href="/parceiros">Parceiros</a></li>
+          <li><a href="/contato">Contato</a></li>
+          <li id="item_login"><a href="/login">Login</a></li>
+        </ul>
+      </nav>
+      <form id="form_busca" class="header_busca">
+        <input id="input_busca" type="search" name="busca" placeholder="Pesquisar...">
+        <button id="btn_busca" type="submit">Buscar</button>
+      </form>
+    </div>
+  </header>
+
+  <main class="main_contato">
+    <h1 class="titulo_form">Fale com a <span>Fazenda Urbana</span></h1>
+    <p class="paragrafo_form">Preencha o formulário abaixo.</p>
+
+    <% if (query && query.enviado === 'ok') { %>
+      <p style="color:green;text-align:center;">Mensagem enviada e salva no MongoDB!</p>
+    <% } %>
+    <% if (query && query.erro) { %>
+      <p style="color:red;text-align:center;">Erro ao enviar. Verifique se o MongoDB está rodando.</p>
+    <% } %>
+
+    <!-- POST direto: salva no Mongo mesmo sem JavaScript -->
+    <form id="meu_contato" method="POST" action="/contato">
+      <p class="form">Digite seu nome:</p>
+      <input type="text" id="nome" name="nome" placeholder="Digite seu nome:" required>
+      <p class="form">Digite seu e-mail:</p>
+      <input type="email" id="email" name="email" placeholder="Digite seu e-mail:" required>
+      <p class="form">Digite seu numero:</p>
+      <input type="tel" id="numero" name="numero" placeholder="Digite seu numero:" required>
+      <button type="submit" id="botao_formulario">Enviar</button>
+    </form>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 Fazenda Urbana</p>
+  </footer>
+
+  <script src="/js/script.js"></script>
+</body>
+</html>

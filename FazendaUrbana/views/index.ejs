@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fazenda Urbana</title>
+  <link rel="stylesheet" href="/css/global.css">
+  <!-- Autor: Lucas Natal (Dev) https://www.linkedin.com/in/lucas-augusto-natal-a03021279/ -->
+</head>
+
+<body>
+
+  <!-- Header da página -->
+  <header class="header">
+    <div class="header_menu">
+
+      <a href="/" class="header_logo">
+        <img src="/assets/img/logo.jpg" alt="Logo Fazenda Urbana">
+      </a>
+      
+      <!-- Navzinho com os botoes indo para cada parte da pagina-->
+      <nav class="header_nav">
+        <ul class="lista_nav">
+          <li><a href="/">Home</a></li>
+          <li><a href="/etapas">Etapas</a></li>
+          <li><a href="/impactos">Impactos</a></li>
+          <li><a href="/parceiros">Parceiros</a></li>
+          <li><a href="/contato">Contato</a></li>
+          <li id="item_login"><a href="/login">Login</a></li>
+        </ul>
+      </nav>
+      
+      <!--Botao de buscar, so para ficar bonito, o site é pequeno nem vai precisar ... -->
+      <form id="form_busca" class="header_busca">
+        <input id="input_busca" type="search" name="busca" placeholder="Pesquisar...">
+        <button id="btn_busca" type="submit">Buscar</button>
+      </form>
+
+    </div>
+  </header>
+
+
+  <!-- Carrossel com as imagens / Área principal do site -->
+  <section class="carrossel" aria-label="Apresentação do projeto">
+    <div id="carrossel" class="carrossel_principal">
+      <img src="/assets/img/img1.png" alt="Plantação urbana">
+      <img src="/assets/img/img2.jpg" alt="Horta comunitária">
+      <img src="/assets/img/img3.jpg" alt="Sustentabilidade urbana">
+    </div>
+
+    <button class="carrossel_btn carrossel_btn_voltar" type="button" aria-label="Imagem anterior">&#10094;</button>
+    <button class="carrossel_btn carrossel_btn_avancar" type="button" aria-label="Próxima imagem">&#10095;</button>
+
+    <!-- class overlay pra deixar um fundo com uma sobreposicao nas imagens-->
+    <div class="overlay">
+      <h1>Fazenda Urbana</h1>
+      <p>Produzindo sustentabilidade no coração da cidade</p>
+      <a class="botao_contato" id="botao_contato" href="/contato"><strong>ENTRE EM CONTATO!</strong></a>
+    </div>
+  </section>
+
+  <!-- Main do site -->
+  <main class="main_inicio">
+
+    <!-- Etapas que tomamos -->
+    <section id="etapas" class="section_etapas">
+      <h2>Etapas do Projeto</h2>
+
+      <article class="etapa">
+        <h3>Diagnóstico</h3>
+        <p>Análise do desperdício alimentar e da falta de acesso a alimentos frescos.</p>
+      </article>
+
+      <article class="etapa">
+        <h3>Mapeamento</h3>
+        <p>Identificação de terrenos e espaços urbanos disponíveis.</p>
+      </article>
+
+      <article class="etapa">
+        <h3>Planejamento</h3>
+        <p>Definição de objetivos e estratégias do projeto.</p>
+      </article>
+
+      <article class="etapa">
+        <h3>Execução</h3>
+        <p>Implementação das fazendas urbanas e tecnologias.</p>
+      </article>
+
+    </section>
+
+
+    <!-- Impactos que a fazenda tem -->
+    <section id="impactos" class="section_impactos">
+      <h2>Impactos Sociais</h2>
+
+      <article>
+        <h3>Transformação Social</h3>
+        <ul>
+          <li>Segurança alimentar</li>
+          <li>Qualidade de vida</li>
+          <li>Inclusão comunitária</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Sustentabilidade</h3>
+        <ul>
+          <li>Redução do desperdício</li>
+          <li>Uso eficiente de recursos</li>
+          <li>Reaproveitamento de espaços urbanos</li>
+        </ul>
+      </article>
+
+      <article>
+        <h3>Educação e Conscientização</h3>
+        <ul>
+          <li>Educação ambiental</li>
+          <li>Consciência alimentar</li>
+          <li>Formação cidadã</li>
+        </ul>
+      </article>
+    </section>
+
+
+    <!-- Aba dos nossos parceiros -->
+    <section id="parceiros" class="section_parceiros">
+      <h2>Parceiros</h2>
+
+      <div class="parceiros_grupo">
+        <h3>Setor Público</h3>
+        <p><strong>Prefeitura de Barueri:</strong> apoio institucional, liberação de terrenos e incentivo financeiro.</p>
+      </div>
+
+      <div class="parceiros_grupo">
+        <h3>Instituições Acadêmicas</h3>
+        <ul>
+          <li><strong>SENAI:</strong> Pesquisa e capacitação técnica.</li>
+          <li><strong>Mackenzie:</strong> Sustentabilidade e inovação social.</li>
+        </ul>
+      </div>
+
+      <div class="parceiros_grupo">
+        <h3>Empresas</h3>
+        <ul>
+          <li><strong>IBM:</strong> IA e análise de dados.</li>
+          <li><strong>TOTVS:</strong> Gestão e automação.</li>
+          <li><strong>Leroy Merlin:</strong> Infraestrutura sustentável.</li>
+        </ul>
+      </div>
+
+      <div class="parceiros_grupo">
+        <h3>ONGs</h3>
+        <ul>
+          <li><strong>Banco de Alimentos:</strong> Combate ao desperdício.</li>
+          <li><strong>Gastromotiva:</strong> Educação alimentar.</li>
+          <li><strong>Instituto Kairós:</strong> Consumo consciente.</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- footer / fim da página - Adicionar mais coisas!!! -->
+  <footer class="footer">
+    <p>&copy; 2026 Fazenda Urbana</p>
+  </footer>
+
+  <!-- .js -->
+  <script src="/js/script.js"></script>
+  <script src="/js/imagem.js"></script>
+
+</body>
+</html>
